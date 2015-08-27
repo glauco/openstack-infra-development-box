@@ -4,8 +4,8 @@
       "vcs": true
     },
     "variables": {
-        "atlas_username": "{{env `ATLAS_USERNAME`}}",
-        "atlas_name": "{{env `ATLAS_NAME`}}"
+        "atlas_username": "glauco",
+        "atlas_name": "openstack-infra-development"
     },
     "provisioners": [
         {
@@ -62,7 +62,7 @@
         {
             "type": "atlas",
             "only": ["virtualbox-iso"],
-            "artifact": "{{user `atlas_username`}}/{{user `atlas_name`}}",
+            "artifact": "glauco/openstack-infra-development",
             "artifact_type": "vagrant.box",
             "metadata": {
                 "provider": "virtualbox",
