@@ -30,24 +30,12 @@
       "type": "virtualbox-iso",
       "boot_command": [
         "<esc><esc><enter><wait>",
-        "/install/vmlinuz auto <wait>",
-        "console-setup/ask_detect=false <wait>",
-        "console-setup/layoutcode=us <wait>",
-        "console-setup/modelcode=pc105 <wait>",
-        "debconf/frontend=noninteractive <wait>",
-        "debian-installer=en_US <wait>",
-        "fb=false <wait>",
-        "initrd=/install/initrd.gz <wait>",
-        "kbd-chooser/method=us <wait>",
-        "keyboard-configuration/layout=USA <wait>",
-        "keyboard-configuration/variant=USA <wait>",
-        "locale=en_US <wait>",
-        "netcfg/get_domain=vm <wait>",
-        "netcfg/get_hostname=localhost <wait>",
-        "noapic <wait>" ,
-        "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg <wait>",
-        "-- <wait>",
-        "<enter>"
+        "/install/vmlinuz noapic preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg <wait>",
+        "debian-installer=en_US auto locale=en_US kbd-chooser/method=us <wait>",
+        "hostname={{ .Name }} <wait>",
+        "fb=false debconf/frontend=noninteractive <wait>",
+        "keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=us keyboard-configuration/variant=us console-setup/ask_detect=false <wait>",
+        "initrd=/install/initrd.gz -- <enter><wait>"
       ],
       "headless": false,
       "boot_wait": "10s",
@@ -57,33 +45,13 @@
       "iso_checksum": "83aabd8dcf1e8f469f3c72fff2375195",
       "iso_checksum_type": "md5",
       "iso_url": "http://old-releases.ubuntu.com/releases/trusty/ubuntu-14.04.2-server-amd64.iso",
-      "ssh_username": "root",
-      "ssh_password": "puppet",
+      "ssh_username": "vagrant",
+      "ssh_password": "vagrant",
       "ssh_port": 22,
       "ssh_wait_timeout": "10000s",
       "shutdown_command": "echo '/sbin/halt -h -p' > shutdown.sh; echo 'vagrant'|sudo -S bash 'shutdown.sh'",
       "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
-      "virtualbox_version_file": ".vbox_version",
-      "vboxmanage": [
-        [
-          "modifyvm",
-          "{{.Name}}",
-          "--memory",
-          "512"
-        ],
-        [
-          "modifyvm",
-          "{{.Name}}",
-          "--cpus",
-          "1"
-        ],
-        [
-          "modifyvm",
-          "{{.Name}}",
-          "--ioapic",
-          "off"
-        ]
-      ]
+      "virtualbox_version_file": ".vbox_version"
     }
   ],
   "post-processors": [
@@ -98,7 +66,7 @@
       "artifact_type": "vagrant.box",
       "metadata": {
         "provider": "virtualbox",
-        "version": "0.0.5"
+        "version": "0.0.12"
       }
     }]
   ]
