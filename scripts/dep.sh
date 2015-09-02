@@ -12,5 +12,6 @@ cd system-config
 bash install_puppet.sh
 bash install_modules.sh
 
+echo "Rebooting"
 reboot
 sleep 60
