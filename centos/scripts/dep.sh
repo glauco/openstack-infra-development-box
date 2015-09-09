@@ -14,4 +14,3 @@ bash install_modules.sh
 
 echo "Rebooting"
 reboot
-sleep 60
