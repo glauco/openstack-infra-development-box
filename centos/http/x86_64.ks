@@ -27,6 +27,7 @@ reboot --eject
 bzip2
 kernel-devel
 kernel-headers
+dkms
 gcc
 make
 net-tools
@@ -36,6 +37,7 @@ curl
 wget
 nfs-utils
 yum-presto
+sudo
 -ipw2100-firmware
 -ipw2200-firmware
 -ivtv-firmware
