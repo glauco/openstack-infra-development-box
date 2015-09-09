@@ -2,14 +2,24 @@
   "provisioners": [
     {
       "type": "shell",
+      "script": "scripts/base.sh"
+    },
+    {
+      "type": "shell",
       "scripts": [
-        "scripts/base.sh",
         "scripts/vagrant.sh",
-        "scripts/dep.sh",
+        "scripts/dep.sh"
+      ],
+      "pause_before": "10s"
+    },
+    {
+      "type": "shell",
+      "scripts": [
         "scripts/virtualbox.sh",
         "scripts/cleanup.sh",
         "scripts/zerodisk.sh"
-      ]
+      ],
+      "pause_before": "10s"
     }
   ],
   "builders": [
@@ -21,7 +31,6 @@
         "ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/x86_64.ks <wait>",
         "<enter>"
       ],
-      "headless": "false",
       "boot_wait": "10s",
       "disk_size": 20480,
       "guest_os_type": "RedHat_64",
@@ -33,8 +42,9 @@
       "ssh_password": "vagrant",
       "ssh_port": 22,
       "ssh_wait_timeout": "10000s",
-      "shutdown_command": "/sbin/halt -h -p",
+      "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
       "virtualbox_version_file": ".vbox_version",
+      "shutdown_command": "/sbin/halt -h -p",
       "vboxmanage": [
         [
           "modifyvm",
@@ -69,7 +79,7 @@
       "artifact_type": "vagrant.box",
       "metadata": {
         "provider": "virtualbox",
-        "version": "0.0.1"
+        "version": "0.0.2"
       }
     }
   ]
