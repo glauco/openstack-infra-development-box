@@ -68,7 +68,7 @@
     }
   ],
   "post-processors": [
-    {
+    [{
       "type": "vagrant",
       "keep_input_artifact": false
     },
@@ -81,6 +81,6 @@
         "provider": "virtualbox",
         "version": "0.0.2"
       }
-    }
+    }]
   ]
 }
