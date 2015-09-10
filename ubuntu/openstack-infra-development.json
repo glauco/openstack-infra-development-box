@@ -58,11 +58,11 @@
         {
             "type": "atlas",
             "only": ["virtualbox-iso"],
-            "artifact": "glauco/openstack-infra-development",
+            "artifact": "glauco/openstack-infra-development-ubuntu",
             "artifact_type": "vagrant.box",
             "metadata": {
                 "provider": "virtualbox",
-                "version": "0.1.1"
+                "version": "0.2.0"
             }
         }]
     ]
