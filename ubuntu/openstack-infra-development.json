@@ -9,11 +9,21 @@
       "scripts": [
         "scripts/base.sh",
         "scripts/vagrant.sh",
-        "scripts/dep.sh",
+        "scripts/dep.sh"
+      ],
+      "override": {
+        "virtualbox-iso": {
+          "execute_command": "echo 'vagrant'|sudo -S bash '{{.Path}}'"
+        }
+      }
+    }, {
+      "type": "shell",
+      "scripts": [
         "scripts/virtualbox.sh",
         "scripts/cleanup.sh",
         "scripts/zerodisk.sh"
       ],
+      "pause_before": "10s",
       "override": {
         "virtualbox-iso": {
           "execute_command": "echo 'vagrant'|sudo -S bash '{{.Path}}'"
@@ -82,7 +92,7 @@
       "artifact_type": "vagrant.box",
       "metadata": {
         "provider": "virtualbox",
-        "version": "0.3.0"
+        "version": "0.3.1"
       }
     }]
   ]
