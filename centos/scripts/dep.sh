@@ -12,5 +12,7 @@ cd system-config
 bash install_puppet.sh
 bash install_modules.sh
 
+yum -y update
+
 echo "Rebooting"
 reboot
