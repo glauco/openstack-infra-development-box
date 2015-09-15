@@ -3,8 +3,9 @@
 # Update the box
 rpm -ivh https://yum.puppetlabs.com/puppetlabs-release-pc1-el-7.noarch.rpm
 yum -y update
-yum -y install puppet zlib1g-dev libssl-dev libreadline-gplv2-dev curl wget unzip
+yum -y install zlib1g-dev libssl-dev libreadline-gplv2-dev curl wget unzip
 yum -y install bzip2 kernel-devel kernel-headers dkms gcc make net-tools patch perl curl wget nfs-utils yum-presto sudo
+yum -y install puppet -x puppet-agent
 
 # Tweak sshd to prevent DNS resolution (speed up logins)
 echo 'UseDNS no' >> /etc/ssh/sshd_config
@@ -23,10 +24,6 @@ GRUB_DISABLE_RECOVERY="true"
 EOF
 
 grub2-mkconfig --output=/boot/grub2/grub.cfg
-
-cat <<EOF > /etc/profile.d/puppet.sh
-export PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/root/bin:/opt/puppetlabs/bin
-EOF
 
 echo "Rebooting"
 reboot
