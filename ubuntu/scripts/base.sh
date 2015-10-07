@@ -1,7 +1,5 @@
 #!/bin/bash
 
-perl -p -i -e 's#http://us.archive.ubuntu.com/ubuntu#http://br.archive.ubuntu.com/ubuntu#gi' /etc/apt/sources.list
-
 # Update the box
 apt-get -y update >/dev/null
 apt-get -y install facter build-essential zlib1g-dev libssl-dev libreadline-gplv2-dev curl unzip >/dev/null
