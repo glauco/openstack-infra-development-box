@@ -1,0 +1,99 @@
+{
+  "push": {
+    "name": "",
+    "vcs": true
+  },
+  "provisioners": [
+    {
+      "type": "shell",
+      "scripts": [
+        "scripts/base.sh",
+        "scripts/vagrant.sh",
+        "scripts/dep.sh"
+      ],
+      "override": {
+        "virtualbox-iso": {
+          "execute_command": "echo 'vagrant'|sudo -S bash '{{.Path}}'"
+        }
+      }
+    }, {
+      "type": "shell",
+      "scripts": [
+        "scripts/virtualbox.sh",
+        "scripts/cleanup.sh",
+        "scripts/zerodisk.sh"
+      ],
+      "pause_before": "10s",
+      "override": {
+        "virtualbox-iso": {
+          "execute_command": "echo 'vagrant'|sudo -S bash '{{.Path}}'"
+        }
+      }
+    }
+  ],
+  "builders": [
+    {
+      "type": "virtualbox-iso",
+      "boot_command": [
+        "<esc><esc><enter><wait>",
+        "/install/vmlinuz noapic preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg <wait>",
+        "debian-installer=en_US auto locale=en_US kbd-chooser/method=us <wait>",
+        "hostname={{ .Name }} <wait>",
+        "fb=false debconf/frontend=noninteractive <wait>",
+        "keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=us keyboard-configuration/variant=us console-setup/ask_detect=false <wait>",
+        "initrd=/install/initrd.gz -- <enter><wait>"
+      ],
+      "headless": false,
+      "boot_wait": "10s",
+      "disk_size": 20480,
+      "guest_os_type": "Ubuntu_64",
+      "http_directory": "http",
+      "iso_checksum": "769474248a3897f4865817446f9a4a53",
+      "iso_checksum_type": "md5",
+      "iso_url": "http://releases.ubuntu.com/12.04/ubuntu-12.04.5-server-amd64.iso",
+      "ssh_username": "vagrant",
+      "ssh_password": "vagrant",
+      "ssh_port": 22,
+      "ssh_wait_timeout": "10000s",
+      "shutdown_command": "echo '/sbin/halt -h -p' > shutdown.sh; echo 'vagrant'|sudo -S bash 'shutdown.sh'",
+      "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
+      "virtualbox_version_file": ".vbox_version",
+      "vboxmanage": [
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--memory",
+          "512"
+        ],
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--cpus",
+          "1"
+        ],
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--ioapic",
+          "off"
+        ]
+      ]
+    }
+  ],
+  "post-processors": [
+    [{
+      "type": "vagrant",
+      "keep_input_artifact": false
+    },
+    {
+      "type": "atlas",
+      "only": ["virtualbox-iso"],
+      "artifact": "glauco/openstack-infra-development-precise",
+      "artifact_type": "vagrant.box",
+      "metadata": {
+        "provider": "virtualbox",
+        "version": "0.0.1"
+      }
+    }]
+  ]
+}
