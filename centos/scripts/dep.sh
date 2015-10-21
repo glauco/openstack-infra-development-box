@@ -12,6 +12,7 @@ cd system-config
 bash install_puppet.sh
 bash install_modules.sh
 
+yum-config-manager --save --setopt=openstack-kilo.skip_if_unavailable=true
 yum -y update
 
 echo "Rebooting"
