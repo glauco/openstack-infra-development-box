@@ -75,11 +75,11 @@
     {
       "type": "atlas",
       "only": ["virtualbox-iso"],
-      "artifact": "glauco/openstack-infra-development-centos",
+      "artifact": "glauco/os-infra-development-centos-7",
       "artifact_type": "vagrant.box",
       "metadata": {
         "provider": "virtualbox",
-        "version": "0.5.5"
+        "version": "1.1.0"
       }
     }]
   ]
